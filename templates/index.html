@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Metadados, titulo, fonte externa e folha de estilos da pagina. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Recomendações personalizadas de jogos para PlayStation 5.">
+  <title>NextPlay | Encontre seu próximo jogo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <!-- Elementos decorativos que produzem as luzes do plano de fundo. -->
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <!-- Cabecalho com a identidade do site e o indicador da IA utilizada. -->
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="NextPlay - início">
+      <span class="brand-mark">L</span>
+      <span>NextPlay</span>
+    </a>
+    <span class="ai-badge"><i></i> Gemini AI</span>
+  </header>
+
+  <!-- Conteudo principal da aplicacao. -->
+  <main>
+    <!-- Apresentacao do servico para o visitante. -->
+    <section class="hero">
+      <p class="eyebrow">SEU PRÓXIMO JOGO COMEÇA AQUI</p>
+      <h1>Menos procura.<br><span>Mais diversão.</span></h1>
+      <p class="subtitle">Descreva o que você gosta e receba recomendações de jogos para desfrutar do melhor que o PS5 tem a oferecer.</p>
+    </section>
+
+    <!-- Area interativa que recebe as preferencias e mostra a recomendacao. -->
+    <section class="finder" aria-labelledby="finder-title">
+      <!-- Titulo e orientacao para o preenchimento. -->
+      <div class="finder-heading">
+        <div class="spark">✦</div>
+        <div>
+          <h2 id="finder-title">Qual a experiência que você busca em jogo?</h2>
+          <p>Quanto mais detalhes, melhor será a recomendação.</p>
+        </div>
+      </div>
+
+      <!-- Formulario tratado pelo JavaScript sem recarregar a pagina. -->
+      <form id="recommendation-form">
+        <label for="question">Descreva o seu novo mundo de aventuras ideal:</label>
+        <textarea id="question" maxlength="1500" required placeholder="Ex: Quero um RPG de mundo aberto, com uma história envolvente, para jogar sozinho e que custe até R$ 200..."></textarea>
+        <div class="suggestions" aria-label="Sugestões rápidas">
+          <button type="button" data-prompt="Quero um jogo com uma história emocionante para jogar sozinho.">Boa história</button>
+          <button type="button" data-prompt="Recomende jogos cooperativos divertidos para jogar com amigos.">Co-op com amigos</button>
+          <button type="button" data-prompt="Quero jogos de mundo aberto com muita exploração.">Mundo aberto</button>
+          <button type="button" data-prompt="Quero jogos bons para iniciantes e com dificuldade acessível.">Para iniciantes</button>
+        </div>
+        <!-- Envia a descricao para o endpoint do backend. -->
+        <button class="submit-button" type="submit">
+          <span>Encontrar meu próximo jogo</span>
+          <span class="arrow">→</span>
+        </button>
+      </form>
+
+      <!-- Regioes atualizadas com o carregamento, os erros e a resposta da API. -->
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+      <article id="result" class="result" hidden>
+      <div class="result-title">
+        <span>✦</span> Suas recomendações
+        <span id="usage-summary" class="usage-summary" hidden></span>
+      </div>
+        <div id="answer"></div>
+      </article>
+    </section>
+
+    <section class="features" aria-label="Benefícios">
+      <div>
+        <span class="feature-trophy trophy-bronze" aria-label="Troféu de bronze">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 3h8v4a4 4 0 0 1-8 0V3Z"></path>
+            <path d="M8 5H5v1a4 4 0 0 0 4 4M16 5h3v1a4 4 0 0 1-4 4M12 11v5M9 20h6M10 16h4v4h-4Z"></path>
+          </svg>
+        </span>
+        <span class="feature-copy"><b>Personalizado</b>Baseado no seu estilo</span>
+      </div>
+      <div>
+        <span class="feature-trophy trophy-silver" aria-label="Troféu de prata">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 3h8v4a4 4 0 0 1-8 0V3Z"></path>
+            <path d="M8 5H5v1a4 4 0 0 0 4 4M16 5h3v1a4 4 0 0 1-4 4M12 11v5M9 20h6M10 16h4v4h-4Z"></path>
+          </svg>
+        </span>
+        <span class="feature-copy"><b>Direto ao ponto</b>Até 3 recomendações</span>
+      </div>
+      <div>
+        <span class="feature-trophy trophy-gold" aria-label="Troféu de ouro">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 3h8v4a4 4 0 0 1-8 0V3Z"></path>
+            <path d="M8 5H5v1a4 4 0 0 0 4 4M16 5h3v1a4 4 0 0 1-4 4M12 11v5M9 20h6M10 16h4v4h-4Z"></path>
+          </svg>
+        </span>
+        <span class="feature-copy"><b>Feito para PS5</b>Jogos disponíveis no console</span>
+      </div>
+    </section>
+  </main>
+
+  <footer>NextPlay · Recomendações geradas por inteligência artificial</footer>
+  <!-- Carrega a interatividade depois que a estrutura da pagina esta pronta. -->
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

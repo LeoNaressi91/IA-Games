@@ -1,0 +1,112 @@
+<!-- Fragmento renderizado pelo Flask com a resposta estruturada do Gemini. -->
+{% if recomendacao.introducao %}
+  <p class="recommendation-intro">{{ recomendacao.introducao }}</p>
+{% endif %}
+
+{% if recomendacao.jogos %}
+  <div class="game-list">
+    {% for jogo in recomendacao.jogos %}
+      <article class="game-card">
+        <div class="game-hero">
+          {% if jogo.imagem_url %}
+            <img
+              src="{{ jogo.imagem_url }}"
+              alt="Capa do jogo {{ jogo.nome }}"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+            >
+          {% else %}
+            <span class="game-hero-fallback">{{ jogo.nome[0] }}</span>
+          {% endif %}
+          <div class="game-hero-gradient"></div>
+
+          <header class="game-hero-content">
+            <div class="game-genre-row">
+              <span
+                class="game-trophy trophy-{{ loop.index }}"
+                aria-label="Troféu da recomendação {{ loop.index }}"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M8 3h8v4a4 4 0 0 1-8 0V3Z"></path>
+                  <path d="M8 5H5v1a4 4 0 0 0 4 4M16 5h3v1a4 4 0 0 1-4 4M12 11v5M9 20h6M10 16h4v4h-4Z"></path>
+                </svg>
+              </span>
+              <span class="game-genre">{{ jogo.genero }}</span>
+            </div>
+            <h3>{{ jogo.nome }}</h3>
+            <div class="game-modes" aria-label="Modos de jogo">
+              {% for modo in jogo.modos %}
+                <span>{{ modo }}</span>
+              {% endfor %}
+            </div>
+          </header>
+        </div>
+
+        <div class="game-card-body">
+          <p class="game-description">{{ jogo.descricao }}</p>
+
+          <div class="score-grid">
+            <div class="score-card">
+              <span class="detail-label">Jogadores</span>
+              {% if jogo.nota_jogadores is not none %}
+                <strong>{{ "%.1f" | format(jogo.nota_jogadores) }}<small>/10</small></strong>
+              {% else %}
+                <strong class="score-unavailable">N/D</strong>
+              {% endif %}
+            </div>
+            <div class="score-card">
+              <span class="detail-label">Crítica</span>
+              {% if jogo.nota_critica is not none %}
+                <strong>{{ jogo.nota_critica }}<small>/100</small></strong>
+              {% else %}
+                <strong class="score-unavailable">N/D</strong>
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="game-facts">
+            <div class="fact-row">
+              <span class="fact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="m13 2-9 12h7l-1 8 9-12h-7l1-8Z"></path>
+                </svg>
+              </span>
+              <span class="detail-label">Nível de dificuldade</span>
+              <strong>{{ jogo.dificuldade }}</strong>
+            </div>
+            <div class="fact-row profile-row">
+              <span class="fact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="9" cy="8" r="3"></circle>
+                  <path d="M3 20v-2a5 5 0 0 1 10 0v2M16 4a3 3 0 0 1 0 6M17 13a5 5 0 0 1 4 5v2"></path>
+                </svg>
+              </span>
+              <div>
+                <span class="detail-label">Perfil recomendado</span>
+                <p>{{ jogo.perfil_jogador }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="price-panel">
+            <div>
+              <span class="detail-label">Menor preço histórico</span>
+              <strong>{{ jogo.menor_preco_historico }}</strong>
+            </div>
+            <div>
+              <span class="detail-label">Preço justo</span>
+              <strong>{{ jogo.preco_justo }}</strong>
+            </div>
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% if recomendacao.pergunta_complementar %}
+  <aside class="follow-up">
+    <strong>Conte mais um pouco</strong>
+    <p>{{ recomendacao.pergunta_complementar }}</p>
+  </aside>
+{% endif %}
