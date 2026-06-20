@@ -88,7 +88,7 @@ O projeto inclui um Blueprint em `render.yaml`. Para publicar:
 3. Informe o valor secreto de `GEMINI_API_KEY` quando solicitado.
 4. Confirme a criação do serviço `nextplay`.
 
-O Render instalará as dependências e iniciará a aplicação com Gunicorn. O arquivo `.env` local não é enviado ao repositório; em produção, a chave deve ser configurada somente como variável de ambiente do serviço.
+O Render instalará as dependências e iniciará a aplicação com Gunicorn. Em um serviço configurado manualmente, use `gunicorn app:app` como comando de inicialização. O arquivo `.env` local não é enviado ao repositório; em produção, a chave deve ser configurada somente como variável de ambiente do serviço.
 
 ## Estrutura do projeto
 
