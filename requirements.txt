@@ -1,5 +1,6 @@
 google-genai
 python-dotenv
 Flask
+gunicorn
 pydantic
 requests

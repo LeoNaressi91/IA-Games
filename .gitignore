@@ -1,3 +1,15 @@
 .env
+.env.*
+!.env.example
+
 __pycache__/
-*.pyc
+*.py[cod]
+.pytest_cache/
+
+# Ambientes virtuais
+.venv/
+venv/
+Include/
+Lib/
+Scripts/
+pyvenv.cfg

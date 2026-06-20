@@ -79,6 +79,17 @@ http://127.0.0.1:5000
 
 Descreva o tipo de jogo desejado, incluindo detalhes como gênero, orçamento e preferência por campanha ou multiplayer. A aplicação enviará a solicitação ao modelo `gemini-2.5-flash` e exibirá as recomendações na página.
 
+## Deploy no Render
+
+O projeto inclui um Blueprint em `render.yaml`. Para publicar:
+
+1. Envie o projeto para um repositório no GitHub, GitLab ou Bitbucket.
+2. No Render, escolha **New > Blueprint** e conecte o repositório.
+3. Informe o valor secreto de `GEMINI_API_KEY` quando solicitado.
+4. Confirme a criação do serviço `nextplay`.
+
+O Render instalará as dependências e iniciará a aplicação com Gunicorn. O arquivo `.env` local não é enviado ao repositório; em produção, a chave deve ser configurada somente como variável de ambiente do serviço.
+
 ## Estrutura do projeto
 
 ```text
